@@ -1,7 +1,11 @@
-package cipher
+package main
 
 import (
+	"bufio"
+	"fmt"
 	"io"
+	"log"
+	"os"
 )
 
 // Rot128Reader implements io.Reader that transforms
@@ -42,4 +46,33 @@ func rot128(buf []byte) {
 	for idx := range buf {
 		buf[idx] += 128
 	}
+}
+
+func DeRot128(buf []byte) {
+	for idx := range buf {
+		buf[idx] -= 128
+	}
+}
+
+func main() {
+	a := []byte("test")
+	fmt.Println(a)
+
+
+	csvfile, err := os.Open("../data/fng.1000.csv.rot128")
+	if err != nil{
+		log.Fatalln("could not open")
+	}
+
+	r := bufio.NewReader(csvfile)
+	rot, err := NewRot128Reader(r)
+	if err != nil{
+		log.Fatalln("could not open")
+	}
+	out, err := rot.reader.Read([]byte(r))
+	if err != nil{
+		log.Fatalln("could not open")
+	}
+
+	fmt.Println(out)
 }

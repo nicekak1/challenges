@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	r "github.com/stretchr/testify/require"
+	 r "github.com/stretchr/testify/require"
 )
 
 var (
